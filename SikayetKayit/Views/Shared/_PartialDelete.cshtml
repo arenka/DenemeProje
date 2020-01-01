@@ -1,0 +1,16 @@
+﻿@model SikayetKayit.Models.Sikayet
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <span id="dectiption_text_@Model.Id">
+                @Model.Title silmek istediğinize emin misiniz?
+            </span>
+        </div>
+    </div>
+
+
+    <button type="button" class="btn btn-danger btn-sm" data-edit-mode="false" onclick="doComment(this,'delete_clicked',@Model.Id,'#dectiption_text_@Model.Id');">Sil</button>
+</div>
+

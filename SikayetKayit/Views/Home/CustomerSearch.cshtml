@@ -1,0 +1,14 @@
+﻿@model SikayetKayit.Models.Customer
+
+
+
+@if (Model == null)
+{
+
+    <label class="label label-danger">Müşteri Ekle</label>
+}
+else
+{
+
+    <label class="label label-success">@Model.Name</label>
+}

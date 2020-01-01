@@ -1,0 +1,15 @@
+﻿@model SikayetKayit.Models.Sikayet
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <span id="dectiption_text_@Model.Id" contenteditable="false">
+                @Model.Description
+            </span>
+        </div>
+    </div>
+  
+
+    <button type="button" class="btn btn-warning btn-sm" data-edit-mode="false" onclick="doComment(this,'edit_clicked',@Model.Id,'#dectiption_text_@Model.Id');">Düzenle</button>
+</div>

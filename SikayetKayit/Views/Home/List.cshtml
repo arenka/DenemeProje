@@ -1,0 +1,221 @@
+﻿@model IEnumerable<SikayetKayit.Models.Sikayet>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_ListLayout.cshtml";
+}
+
+
+
+
+
+
+<a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAdd">Şikayet Giriş</a>
+
+
+
+<table class="table table-striped table-dark" id="table">
+    <thead>
+        <tr>
+            <th scope="col">Müşteri Adı</th>
+            <th scope="col">Müşteri Soyadı</th>
+            <th scope="col">Telefon</th>
+            <th scope="col">Email</th>
+            <th scope="col">Şikayet Başlığı</th>
+            <th scope="col">Tarih</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col">
+                İşlemler
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sikayet in Model)
+        {
+            <tr>
+
+                <td>@sikayet.Customer.Name</td>
+                <td>@sikayet.Customer.SurName</td>
+                <td>@sikayet.Customer.Phone</td>
+                <td>@sikayet.Customer.Eposta</td>
+                <td>@sikayet.Title</td>
+                <td>@sikayet.DateTime</td>
+                <td>@sikayet.Description</td>
+                <td>
+                    <a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalDetails" data-sikayet-id="@sikayet.Id">Detay</a>
+                    <a href="#" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalDetails" data-sikayet-id="@sikayet.Id">Düzenle</a>
+                    <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete" data-sikayet-id="@sikayet.Id">Sil</a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+
+
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+                <form id="formSearch" method="get" action="@Url.Action("CustomerSearch","Home")">
+
+                    <div class="input-group">
+                        <input name="q" class="form-control" placeholder="Kelime Gir">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Ara!</button>
+                        </span>
+                    </div>
+
+                </form>
+                <div id="results"> </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalDetails" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body" id="modalDetails_Body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalDelete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body" id="modalDelete_Body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#table').dataTable({
+        pageLength: 10,
+        lengthMenu: [[10, 25, 50, -1], ["10 Adet", "25 Adet", "50 Adet", "Tümü"]],
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json'
+        }
+    });
+
+    $("#formSearch").submit(function (event) {
+
+        event.preventDefault();
+
+        var form = $(this);
+
+        $("#results").load(form.attr("action"), form.serialize());
+
+
+    });
+
+
+
+
+    $(function () {
+        $('#modalDelete').on('show.bs.modal', function (e) {
+            var btn = $(e.relatedTarget);
+            var sikayetid = btn.data("sikayet-id");
+
+            $('#modalDelete_Body').load("/Home/Delete/" + sikayetid);
+        })
+    });
+
+    $(function () {
+        $('#modalDetails').on('show.bs.modal', function (e) {
+            var btn = $(e.relatedTarget);
+            var sikayetid = btn.data("sikayet-id");
+
+            $('#modalDetails_Body').load("/Home/SikayetDetay/" + sikayetid);
+        })
+    });
+
+    function doComment(btn, e, sikayetid, spanid) {
+
+        var button = $(btn);
+        var mode = button.data("edit-mode");
+      
+        if (e === "edit_clicked") {
+            if (!mode) {
+                button.data("edit-mode", true);
+                button.removeClass("btn-warning");
+                button.addClass("btn-success");
+
+                $(spanid).addClass("editable");
+                $(spanid).attr("contenteditable", true);
+                $(spanid).focus();
+
+            }
+            else {
+                button.data("edit-mode", false);
+                button.removeClass("btn-success");
+                button.addClass("btn-warning");
+
+                $(spanid).removeClass("editable");
+                $(spanid).attr("contenteditable", false);
+
+                var txt = $(spanid).text();
+
+                $.ajax({
+                    method: "POST",
+                    url: "/Home/Edit/" + sikayetid,
+                    data: { text: txt }
+                }).done(function (data) {
+
+                    if (data.result) {
+
+                        $('#modalDetails_Body').load("/Home/SikayetDetay/" + sikayetid);
+
+                    }
+                    else {
+                        alert("Yorum Güncellenemedi")
+                    }
+
+                }).fail(function () {
+                    alert("Sunucu ile bağlantı kurulamadı")
+                });
+            }
+
+
+        }
+        else if (e === "delete_clicked") {
+            $.ajax({
+                method: "POST",
+                url: "/Home/Delete/" + sikayetid
+            }).done(function (data) {
+
+                if (data.result) {
+
+                    $('#modalDetails_Body').load("/Home/List");
+                }
+                else {
+                    alert("Yorum Silinemedi");
+                }
+            }).fail(function () {
+                alert("Sunucu ile bağlantı kurulamadı");
+            });
+        }
+    }
+
+</script>
+
