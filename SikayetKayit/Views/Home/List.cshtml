@@ -65,12 +65,15 @@
                     <div class="input-group">
                         <input name="q" class="form-control" placeholder="Kelime Gir">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">Ara!</button>
+                            <button class="btn btn-primary" type="submit">Ara!</button>
                         </span>
                     </div>
 
                 </form>
-                <div id="results"> </div>
+                <hr />
+                <div id="results">
+
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -110,14 +113,40 @@
     </div>
 </div>
 <script>
+
     $("#formSearch").submit(function (event) {
 
         event.preventDefault();
 
         var form = $(this);
+        var html = [];
 
-        $("#results").load(form.attr("action"), form.serialize());
+        $.ajax({
+            type: 'POST',
+            url: form.attr("action"),
+            data: form.serialize(),
+            dataType: 'json',
+            success: function (data) {
 
+                if (data == "") {
+                   
+                    html.push("<div class='alert alert-dark'> Müşteri Ekle </div>");
+                }
+                else {
+                    $.each(data, function (key, value) {
+
+                        html.push("<div class='alert alert-dark'>" + value.Name + "</div>");
+
+                    });
+                }
+
+
+                $("#results").empty().append(html);
+            },
+            error: function () {
+                alert("hata oluştu");
+            }
+        });
 
     });
 </script>

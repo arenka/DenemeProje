@@ -45,7 +45,7 @@ namespace SikayetKayit.Controllers
         {
             return View(dataContext.Sikayet.ToList());
         }
-
+      
         public ActionResult CustomerSearch(string q)
         {
             var customer = dataContext.Customer.Where(x => x.Eposta.Contains(q) || x.Phone.Contains(q));
