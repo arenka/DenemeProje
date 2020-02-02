@@ -1,4 +1,5 @@
-﻿using SikayetKayit.Models;
+﻿using SikayetKayit.Extensions;
+using SikayetKayit.Models;
 using SikayetKayit.Models.Data;
 using SikayetKayit.Models.ViewModel;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Filter = SikayetKayit.Models.ViewModel.Filter;
 
 namespace SikayetKayit.Controllers
 {
@@ -45,7 +47,21 @@ namespace SikayetKayit.Controllers
         {
             return View(dataContext.Sikayet.ToList());
         }
-      
+
+        public ActionResult Pagination(Filter filter, int page = 1, int pageSize = 3)
+        {
+            var query = dataContext.Sikayet
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(filter.Title))
+            {
+                query = query.Where(w => w.Title.StartsWith(filter.Title));
+            }
+
+            var model = query.OrderByDescending(o => o.Id).GetPaged(page, pageSize);
+            return View(model);            
+        }
+
         public ActionResult CustomerSearch(string q)
         {
             var customer = dataContext.Customer.Where(x => x.Eposta.Contains(q) || x.Phone.Contains(q));
@@ -107,7 +123,7 @@ namespace SikayetKayit.Controllers
             return PartialView("_PartialDelete", sikayet);
         }
 
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public JsonResult Deleted(int? id)
         {
             if (id == null)
@@ -116,7 +132,7 @@ namespace SikayetKayit.Controllers
             }
             Sikayet sikayet = dataContext.Sikayet.FirstOrDefault(x => x.Id == id);
 
-            
+
             var deleted = dataContext.Set<Sikayet>().Attach(sikayet);
             dataContext.Entry<Sikayet>(deleted).State = System.Data.Entity.EntityState.Deleted;
             dataContext.SaveChanges();

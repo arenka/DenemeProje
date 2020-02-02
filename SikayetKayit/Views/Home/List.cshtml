@@ -10,9 +10,6 @@
 
 <div class="container">
     <a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalAdd">Şikayet Giriş</a>
-
-
-
     <table class="table table-striped table-dark" id="table">
         <thead>
             <tr>
@@ -51,9 +48,23 @@
 
         </tbody>
     </table>
-
 </div>
 
+
+
+<div id="dic">
+    <div>
+        <input type="text" name="txttest" style="width:200px;" />
+        <input type="button" onclick="AddToTextButton()" value="Add" />
+    </div>
+</div>
+
+<div id="divJqe">
+    <input id="AddButton" type="button" value="Add" />
+</div>
+<div id="TextBoxContainer">
+   
+</div>
 <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -113,6 +124,38 @@
     </div>
 </div>
 <script>
+    function GetDynamicTextButton(value) {
+        return '<div><input type="text" name="txttest" style="width:200px;" /><input type="button" onclick="RemoveToTextButton(this)" value="Remove" /></div>'
+    }
+    function AddToTextButton() {
+        var div = document.createElement('DIV');
+        div.innerHTML = GetDynamicTextButton("");
+        document.getElementById("dic").appendChild(div);
+    }
+    function RemoveToTextButton(div) {
+        document.getElementById("dic").removeChild(div.parentNode.parentNode);
+    }
+
+    $(document).ready(function () {
+      
+        $("#AddButton").click(function () {
+
+            var div = $("#TextBoxContainer");
+            var value = "";
+            var nameBox = $("<input />").attr("type", "textbox");
+            nameBox.val(value);
+            div.append(nameBox);
+            var textbox = $("<input />").attr("type", "button").attr("value", "Remove").attr("id","text");
+            textbox.attr("onclick", "RemoveTextBox(this)");
+            div.append(textbox);
+            $("#TextBoxContainer").append();
+        });
+
+    });
+    function RemoveTextBox(textbox) {
+   
+        $(textbox).parent().remove();
+    }
 
     $("#formSearch").submit(function (event) {
 
@@ -129,7 +172,7 @@
             success: function (data) {
 
                 if (data == "") {
-                   
+
                     html.push("<div class='alert alert-dark'> Müşteri Ekle </div>");
                 }
                 else {
