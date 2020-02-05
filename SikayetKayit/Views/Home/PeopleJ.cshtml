@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "PeopleJ";
+}
+
+
+
+    <form action="/Home/PeopleJ" method="post">
+
+        <div class="form-group">
+            <input type="text" name="People[0].Name" style="width:200px;" />
+            <input type="button" onclick="AddToTextButton()" value="Add" />
+        </div>
+        <div id="dic" class="form-group">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" />
+        </div>
+
+
+    </form>
+
+
+<script type="text/javascript">
+    function GetDynamicTextButton(value) {
+        return '<div><input type="text" name="People["' + i + '"].Name" style="width:200px;" /><input type="button" onclick="RemoveToTextButton(this)" value="Remove" /></div>'
+    }
+    var i = 1;
+    function AddToTextButton() {
+
+        var div = document.createElement('DIV');
+        div.innerHTML = GetDynamicTextButton("");
+        document.getElementById("dic").appendChild(div);
+        i++;
+    }
+    function RemoveToTextButton(div) {
+        document.getElementById("dic").removeChild(div.parentNode.parentNode);
+    }
+</script>

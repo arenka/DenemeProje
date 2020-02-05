@@ -149,5 +149,10 @@ namespace SikayetKayit.Controllers
         {   
             return View();
         }
+       
+        public ActionResult PeopleJ(PeopleViewModel model)
+        {
+            return View();
+        }
     }
 }
