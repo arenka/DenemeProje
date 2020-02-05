@@ -140,5 +140,14 @@ namespace SikayetKayit.Controllers
             return Json(new { result = true }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult People()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult People(PeopleViewModel model)
+        {   
+            return View();
+        }
     }
 }

@@ -124,37 +124,40 @@
     </div>
 </div>
 <script>
-    function GetDynamicTextButton(value) {
-        return '<div><input type="text" name="txttest" style="width:200px;" /><input type="button" onclick="RemoveToTextButton(this)" value="Remove" /></div>'
-    }
-    function AddToTextButton() {
-        var div = document.createElement('DIV');
-        div.innerHTML = GetDynamicTextButton("");
-        document.getElementById("dic").appendChild(div);
-    }
-    function RemoveToTextButton(div) {
-        document.getElementById("dic").removeChild(div.parentNode.parentNode);
-    }
+    //function GetDynamicTextButton(value) {
+    //    return '<div><input type="text" name="txttest" style="width:200px;" /><input type="button" onclick="RemoveToTextButton(this)" value="Remove" /></div>'
+    //}
+    //function AddToTextButton() {
+    //    var div = document.createElement('DIV');
+    //    div.innerHTML = GetDynamicTextButton("");
+    //    document.getElementById("dic").appendChild(div);
+    //}
+    //function RemoveToTextButton(div) {
+    //    document.getElementById("dic").removeChild(div.parentNode.parentNode);
+    //}
 
     $(document).ready(function () {
-      
+        var i = 1;
         $("#AddButton").click(function () {
 
             var div = $("#TextBoxContainer");
             var value = "";
-            var nameBox = $("<input />").attr("type", "textbox");
+
+            var nameBox = $("<input />").attr("type", "textbox").attr("name", "People[" + i + "].Name");
+
             nameBox.val(value);
             div.append(nameBox);
-            var textbox = $("<input />").attr("type", "button").attr("value", "Remove").attr("id","text");
+            var button = $("<input />").attr("type", "button").attr("value", "Remove").attr("id","text");
             textbox.attr("onclick", "RemoveTextBox(this)");
-            div.append(textbox);
+            div.append(button);
             $("#TextBoxContainer").append();
+            i++;
         });
 
     });
-    function RemoveTextBox(textbox) {
+    function RemoveTextBox(button) {
    
-        $(textbox).parent().remove();
+        $(button).parent().remove();
     }
 
     $("#formSearch").submit(function (event) {
