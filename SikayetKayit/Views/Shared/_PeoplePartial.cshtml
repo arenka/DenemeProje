@@ -1,0 +1,62 @@
+﻿
+<div>
+    <div id="col-md-4">
+        <form action="/Home/PeoplePar" method="post">
+            <div class="singlePerson">
+                <div class="form-group">
+                    <input type="text" name="People[0].Name" placeholder="Name" style="width:200px;" />
+
+                </div>
+                <div class="form-group">
+                    <input type="text" name="People[0].FatherName" placeholder="Father Name" style="width:200px;" />
+
+                </div>
+                <div class="form-group">
+                    <input type="text" name="People[0].Age" placeholder="Age" style="width:200px;" />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <input id="AddButton" type="button" value="Add" />
+            </div>
+            <div id="TextBoxContainer">
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var i = 1;
+        $("#AddButton").click(function () {
+            var div = $("<div />");
+            var value = "";
+
+            var nameBox = $("<input />").attr("type", "textbox").attr("name", "People[" + i + "].Name");
+            var fatherBox = $("<input />").attr("type", "textbox").attr("name", "People[" + i + "].FatherName");
+            var ageBox = $("<input />").attr("type", "textbox").attr("name", "People[" + i + "].Age");
+
+            nameBox.val(value);
+            fatherBox.val(value);
+            ageBox.val(value);
+            div.append(nameBox);
+            div.append(fatherBox);
+            div.append(ageBox);
+
+            var button = $("<input />").attr("type", "button").attr("value", "Remove");
+            button.attr("onclick", "RemoveTextButton(this)");
+            div.append(button);
+            $("#TextBoxContainer").append(div);
+
+            i++;
+        });
+    });
+    function RemoveTextButton(button) {
+        $(button).parent().remove();
+    }
+</script>

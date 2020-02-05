@@ -154,5 +154,10 @@ namespace SikayetKayit.Controllers
         {
             return View();
         }
+
+        public ActionResult PeoplePar(PeopleViewModel model)
+        {
+            return View();
+        }
     }
 }
