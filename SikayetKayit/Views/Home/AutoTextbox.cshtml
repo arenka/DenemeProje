@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SikayetKayit.Models.Sikayet>
+@{
+    ViewBag.Title = "AutoTextbox";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<h2>AutoTextbox</h2>
+
+<div>
+    <label>Sikayetler</label>
+    <input class="form-control" id="searchInput" />
+</div>
+
+
+<script>
+    $("#searchInput").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url:'@Url.Action("GetSearchValue","Home")',
+                dataType: "json",
+                data: { search: $("#searchInput").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.Title, value: item.Title };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        },
+        minLenght:0,
+    });
+</script>

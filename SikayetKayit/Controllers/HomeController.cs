@@ -48,7 +48,7 @@ namespace SikayetKayit.Controllers
             return View(dataContext.Sikayet.ToList());
         }
 
-        public ActionResult Pagination(Filter filter, int page = 1, int pageSize = 3)
+        public ActionResult Pagination(Filter filter, int page = 1, int pageSize = 10)
         {
             var query = dataContext.Sikayet
                 .AsQueryable();
@@ -59,8 +59,23 @@ namespace SikayetKayit.Controllers
             }
 
             var model = query.OrderByDescending(o => o.Id).GetPaged(page, pageSize);
-            return View(model);            
+            return View(model);
         }
+
+        public JsonResult PaginationSearch(string SearchValue)
+        {
+            List<Sikayet> SikayetList = new List<Sikayet>();
+            SikayetList = dataContext.Sikayet.Where(s => s.Title.Contains(SearchValue) || SearchValue == null).ToList();
+            return Json(SikayetList, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult SikayetSearch(string q)
+        {
+            var customer = dataContext.Sikayet.Where(x => x.Title.Contains(q));
+            return Json(customer, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult CustomerSearch(string q)
         {
@@ -146,16 +161,43 @@ namespace SikayetKayit.Controllers
         }
         [HttpPost]
         public ActionResult People(PeopleViewModel model)
-        {   
+        {
             return View();
         }
-       
+
         public ActionResult PeopleJ(PeopleViewModel model)
         {
             return View();
         }
 
         public ActionResult PeoplePar(PeopleViewModel model)
+        {
+            return View();
+        }
+
+        public ActionResult AutoTextbox()
+        {
+            return View();
+        }
+
+        public JsonResult GetSearchValue(string search)
+        {
+         
+            List<Sikayet> allSearch = dataContext.Sikayet.Where(x => x.Title.Contains(search)).ToList().Select(x => new Sikayet
+            {
+                Id = x.Id,
+                Title = x.Title
+                //Customer = x.Customer,
+                //CustomerId = x.CustomerId,
+                //DateTime = x.DateTime,
+                //Description = x.Description
+            }).ToList();
+            return new JsonResult { Data = allSearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+
+
+        }
+
+        public ActionResult AutoDdl()
         {
             return View();
         }
