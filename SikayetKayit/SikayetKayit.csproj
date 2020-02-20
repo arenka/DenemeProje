@@ -10104,6 +10104,7 @@
     <Compile Include="Models\ViewModel\Pagination.cs" />
     <Compile Include="Models\ViewModel\PeopleViewModel.cs" />
     <Compile Include="Models\ViewModel\PersonViewModel.cs" />
+    <Compile Include="Models\ViewModel\Phone.cs" />
     <Compile Include="Pagintion\PagedResultBase.cs" />
     <Compile Include="Pagintion\PageResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

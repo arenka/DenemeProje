@@ -48,14 +48,15 @@ namespace SikayetKayit.Controllers
             return View(dataContext.Sikayet.ToList());
         }
 
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult Pagination(Filter filter, int page = 1, int pageSize = 10)
         {
-            var query = dataContext.Sikayet
+                var query = dataContext.Sikayet
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(filter.Title))
             {
-                query = query.Where(w => w.Title.StartsWith(filter.Title));
+                query = query.Where(w => w.Title.Contains(filter.Title));
             }
 
             var model = query.OrderByDescending(o => o.Id).GetPaged(page, pageSize);
@@ -182,7 +183,7 @@ namespace SikayetKayit.Controllers
 
         public JsonResult GetSearchValue(string search)
         {
-         
+
             List<Sikayet> allSearch = dataContext.Sikayet.Where(x => x.Title.Contains(search)).ToList().Select(x => new Sikayet
             {
                 Id = x.Id,
@@ -199,6 +200,7 @@ namespace SikayetKayit.Controllers
 
         public ActionResult AutoDdl()
         {
+           
             return View();
         }
     }
