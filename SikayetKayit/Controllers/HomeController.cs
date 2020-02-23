@@ -56,7 +56,11 @@ namespace SikayetKayit.Controllers
 
             if (!string.IsNullOrEmpty(filter.Title))
             {
-                query = query.Where(w => w.Title.Contains(filter.Title));
+                query = query.Where(w => w.Title.Contains(filter.Title)||
+                                     w.Description.Contains(filter.Title)||
+                                     w.Customer.Name.Contains(filter.Title)||
+                                     w.Customer.Phone.Contains(filter.Title)||
+                                     w.Customer.SurName.Contains(filter.Title));
             }
 
             var model = query.OrderByDescending(o => o.Id).GetPaged(page, pageSize);

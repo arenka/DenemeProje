@@ -2045,9 +2045,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </span>
                                 <form class="kt-margin-l-20" id="kt_subheader_search_form formSearch" method="post">
                                     <div class="kt-input-icon kt-input-icon--right kt-subheader__search">
-                                        <input type="text" class="form-control" placeholder="Search..." id="Search" name="Filter.Title">
-                                       
-                                        <span class="kt-input-icon__icon kt-input-icon__icon--right">
+                                        <input type="search" class="form-control" placeholder="Search..." id="Search" name="Filter.Title">
+
+                                        <button type="submit" class="kt-input-icon__icon kt-input-icon__icon--right form-group">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -2059,7 +2059,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                                 <!--<i class="flaticon2-search-1"></i>-->
                                             </span>
-                                        </span>
+                                        </button>
                                     </div>
                                 </form>
                             </div>
@@ -2181,139 +2181,165 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
 
                         <!--begin:: Widgets/Applications/User/Profile3-->
-                       
-                            @{foreach (var item in Model.Results)
-                                {
-                                    <div class="kt-portlet">
-                                        <div class="kt-portlet__body">
-                                            <div class="kt-widget kt-widget--user-profile-3">
-                                                <div class="kt-widget__top">
-                                                    <div class="kt-widget__media kt-hidden-">
-                                                        <img src="./classic/assets/media/users/100_1.jpg" alt="image">
-                                                    </div>
-                                                    <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
-                                                    </div>
-                                                    <div class="kt-widget__content">
-                                                        <div class="kt-widget__head">
-                                                            <a href="#" class="kt-widget__username">
-                                                                <i class="flaticon2-correct kt-font-success"></i>
-                                                            </a>
-                                                            <div class="kt-widget__action">
-                                                                <button type="button" class="btn btn-label-success btn-sm btn-upper"></button>
-                                                                <button type="button" class="btn btn-brand btn-sm btn-upper"></button>
-                                                            </div>
+
+                        @{foreach (var item in Model.Results)
+                            {
+                                <div class="kt-portlet">
+                                    <div class="kt-portlet__body">
+                                        <div class="kt-widget kt-widget--user-profile-3">
+                                            <div class="kt-widget__top">
+                                                <div class="kt-widget__media kt-hidden-">
+                                                    <img src="./classic/assets/media/users/100_1.jpg" alt="image">
+                                                </div>
+                                                <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
+                                                </div>
+                                                <div class="kt-widget__content">
+                                                    <div class="kt-widget__head">
+                                                        <a href="#" class="kt-widget__username">
+                                                            <i class="flaticon2-correct kt-font-success"></i>
+                                                        </a>
+                                                        <div class="kt-widget__action">
+                                                            <button type="button" class="btn btn-label-success btn-sm btn-upper"></button>
+                                                            <button type="button" class="btn btn-brand btn-sm btn-upper"></button>
                                                         </div>
-                                                        <div class="kt-widget__subhead">
-                                                            <a href="#"><i class="flaticon2-new-email"></i></a>
-                                                            <a href="#"><i class="flaticon2-calendar-3"></i></a>
-                                                            <a href="#"><i class="flaticon2-placeholder"></i></a>
+                                                    </div>
+                                                    <div class="kt-widget__subhead">
+                                                        <a href="#"><i class="flaticon2-new-email"></i></a>
+                                                        <a href="#"><i class="flaticon2-calendar-3"></i></a>
+                                                        <a href="#"><i class="flaticon2-placeholder"></i></a>
+                                                    </div>
+                                                    <div class="kt-widget__info">
+                                                        <div class="kt-widget__desc">
+                                                            @item.Title<strong>--------</strong>@item.Customer.Name
+                                                            <br>
                                                         </div>
-                                                        <div class="kt-widget__info">
-                                                            <div class="kt-widget__desc">
-                                                                <br>
+                                                        <div class="kt-widget__progress">
+                                                            <div class="kt-widget__text">
+                                                                @item.Description
                                                             </div>
-                                                            <div class="kt-widget__progress">
-                                                                <div class="kt-widget__text">
-                                                                    @item.Title
-                                                                </div>
-                                                                <div class="progress" style="height: 5px;width: 100%;">
-                                                                    <div class="progress-bar kt-bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                                <div class="kt-widget__stats">
-                                                                </div>
+                                                            <div class="progress" style="height: 5px;width: 100%;">
+                                                                @{
+                                                                    
+                                                                    var a = 55;
+                                                                    if (a > 0 && a < 50)
+                                                                    {
+                                                                        <div class="progress-bar kt-bg-fill-danger" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    }
+                                                                    else if (a <= 50)
+                                                                    {
+                                                                        <div class="progress-bar kt-bg-fill-warning" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="progress-bar kt-bg-fill-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                    }
+
+
+
+                                                                }
+                                                                @*<div class="progress-bar kt-bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>*@
+                                                            </div>
+                                                            <div class="kt-widget__stats">
+                                                                @item.Customer.Phone
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
+
                                         </div>
                                     </div>
-                                }
+                                </div>
+                            }
+                            if (Model.Results.Count == 0)
+                            {
+                                <h3>Arama Sonucu Bulunamadı...</h3>
                             }
 
+                        }
 
 
 
 
 
-                            <!--end:: Widgets/Applications/User/Profile3-->
-                            <!--Begin::Section-->
-                            <div class="row">
-                                @{
-                                    var pageModel = Model as SikayetKayit.Pagintion.PagedResultBase;
-                                }
 
-                                @Html.Partial("_Pagination", pageModel)
-                                <div class="col-xl-12">
+                        <!--end:: Widgets/Applications/User/Profile3-->
+                        <!--Begin::Section-->
+                        <div class="row">
+                            @{
+                                var pageModel = Model as SikayetKayit.Pagintion.PagedResultBase;
+                            }
 
-                                    <!--begin:: Components/Pagination/Default-->
-                                    <div class="kt-portlet">
-                                        <div class="kt-portlet__body">
+                            @Html.Partial("_Pagination", pageModel)
+                            <div class="col-xl-12">
 
-                                            <!--begin: Pagination-->
-                                            <div class="kt-pagination kt-pagination--brand">
-                                                <ul class="kt-pagination__links">
-                                                    <li class="kt-pagination__link--first">
-                                                        <a href="#"><i class="fa fa-angle-double-left kt-font-brand"></i></a>
-                                                    </li>
-                                                    <li class="kt-pagination__link--next">
-                                                        <a href="#"><i class="fa fa-angle-left kt-font-brand"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">...</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">29</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">30</a>
-                                                    </li>
-                                                    <li class="kt-pagination__link--active">
-                                                        <a href="#">31</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">32</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">33</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">34</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">...</a>
-                                                    </li>
-                                                    <li class="kt-pagination__link--prev">
-                                                        <a href="#"><i class="fa fa-angle-right kt-font-brand"></i></a>
-                                                    </li>
-                                                    <li class="kt-pagination__link--last">
-                                                        <a href="#"><i class="fa fa-angle-double-right kt-font-brand"></i></a>
-                                                    </li>
-                                                </ul>
-                                                <div class="kt-pagination__toolbar">
-                                                    <select class="form-control kt-font-brand" style="width: 60px">
-                                                        <option value="10">10</option>
-                                                        <option value="20">20</option>
-                                                        <option value="30">30</option>
-                                                        <option value="50">50</option>
-                                                        <option value="100">100</option>
-                                                    </select>
-                                                    <span class="pagination__desc">
-                                                        Displaying 10 of 230 records
-                                                    </span>
-                                                </div>
+                                <!--begin:: Components/Pagination/Default-->
+                                <div class="kt-portlet">
+                                    <div class="kt-portlet__body">
+
+                                        <!--begin: Pagination-->
+                                        <div class="kt-pagination kt-pagination--brand">
+                                            <ul class="kt-pagination__links">
+                                                <li class="kt-pagination__link--first">
+                                                    <a href="#"><i class="fa fa-angle-double-left kt-font-brand"></i></a>
+                                                </li>
+                                                <li class="kt-pagination__link--next">
+                                                    <a href="#"><i class="fa fa-angle-left kt-font-brand"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">...</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">29</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">30</a>
+                                                </li>
+                                                <li class="kt-pagination__link--active">
+                                                    <a href="#">31</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">32</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">33</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">34</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">...</a>
+                                                </li>
+                                                <li class="kt-pagination__link--prev">
+                                                    <a href="#"><i class="fa fa-angle-right kt-font-brand"></i></a>
+                                                </li>
+                                                <li class="kt-pagination__link--last">
+                                                    <a href="#"><i class="fa fa-angle-double-right kt-font-brand"></i></a>
+                                                </li>
+                                            </ul>
+                                            <div class="kt-pagination__toolbar">
+                                                <select class="form-control kt-font-brand" style="width: 60px">
+                                                    <option value="10">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                                <span class="pagination__desc">
+                                                    Displaying 10 of 230 records
+                                                </span>
                                             </div>
-
-                                            <!--end: Pagination-->
                                         </div>
+
+                                        <!--end: Pagination-->
                                     </div>
-
-                                    <!--end:: Components/Pagination/Default-->
                                 </div>
-                            </div>
 
-                          <!--End::Section-->
+                                <!--end:: Components/Pagination/Default-->
+                            </div>
+                        </div>
+
+                        <!--End::Section-->
                     </div>
 
                     <!-- end:: Content -->
@@ -3231,69 +3257,69 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
     <script>
-        //$(document).ready(function () {
-        //    $("#SearchBtn").click(function () {
-        //        var SearchValue = $("#Search").val();
-        //        var SetData = $("#DataSearching");
-        //        SetData.html("");
-        //        $.ajax({
-        //            type: "POST",
-        //            url: "/Home/PaginationSearch?SearchValue=" + SearchValue,
-        //            contentType: "html",
-        //            success: function (result) {
-        //                if (result.lenght == 0) {
-        //                    SetData.append('<label>Data yok</label>')
-        //                }
-        //                else {
-        //                    $.each(result, function (index, value) {
-        //                        var Data = '<div class="kt-portlet">' +
-        //                            '<div class="kt-widget__text">' +
-        //                            value.Title +
-        //                            '</div></div>';
-        //                        SetData.append(Data)
-        //                    });
-        //                }
-        //            }
-        //        });
-        //    });
-        //});
+                                                        //$(document).ready(function () {
+                                                        //    $("#SearchBtn").click(function () {
+                                                        //        var SearchValue = $("#Search").val();
+                                                        //        var SetData = $("#DataSearching");
+                                                        //        SetData.html("");
+                                                        //        $.ajax({
+                                                        //            type: "POST",
+                                                        //            url: "/Home/PaginationSearch?SearchValue=" + SearchValue,
+                                                        //            contentType: "html",
+                                                        //            success: function (result) {
+                                                        //                if (result.lenght == 0) {
+                                                        //                    SetData.append('<label>Data yok</label>')
+                                                        //                }
+                                                        //                else {
+                                                        //                    $.each(result, function (index, value) {
+                                                        //                        var Data = '<div class="kt-portlet">' +
+                                                        //                            '<div class="kt-widget__text">' +
+                                                        //                            value.Title +
+                                                        //                            '</div></div>';
+                                                        //                        SetData.append(Data)
+                                                        //                    });
+                                                        //                }
+                                                        //            }
+                                                        //        });
+                                                        //    });
+                                                        //});
 
 
-        //$("#formSearch").submit(function (event) {
+                                                        //$("#formSearch").submit(function (event) {
 
-        //event.preventDefault();
+                                                        //event.preventDefault();
 
-        //var form = $(this);
-        //var html = [];
+                                                        //var form = $(this);
+                                                        //var html = [];
 
-        //$.ajax({
-        //    type: 'POST',
-        //    url: form.attr("action"),
-        //    data: form.serialize(),
-        //    dataType: 'json',
-        //    success: function (data) {
+                                                        //$.ajax({
+                                                        //    type: 'POST',
+                                                        //    url: form.attr("action"),
+                                                        //    data: form.serialize(),
+                                                        //    dataType: 'json',
+                                                        //    success: function (data) {
 
-        //        if (data == "") {
+                                                        //        if (data == "") {
 
-        //            html.push("<div class='alert alert-dark'> Müşteri Ekle </div>");
-        //        }
-        //        else {
-        //            $.each(data, function (key, value) {
+                                                        //            html.push("<div class='alert alert-dark'> Müşteri Ekle </div>");
+                                                        //        }
+                                                        //        else {
+                                                        //            $.each(data, function (key, value) {
 
-        //                html.push("<div class='alert alert-dark'>" + value.Name + "</div>");
+                                                        //                html.push("<div class='alert alert-dark'>" + value.Name + "</div>");
 
-        //            });
-        //        }
+                                                        //            });
+                                                        //        }
 
 
-        //        $("#results").empty().append(html);
-        //    },
-        //    error: function () {
-        //        alert("hata oluştu");
-        //    }
-        //});
+                                                        //        $("#results").empty().append(html);
+                                                        //    },
+                                                        //    error: function () {
+                                                        //        alert("hata oluştu");
+                                                        //    }
+                                                        //});
 
-    });
+                                                    });
     </script>
 </body>
 
