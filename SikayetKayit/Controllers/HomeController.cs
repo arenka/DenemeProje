@@ -1,4 +1,5 @@
-﻿using SikayetKayit.Extensions;
+﻿using Newtonsoft.Json;
+using SikayetKayit.Extensions;
 using SikayetKayit.Models;
 using SikayetKayit.Models.Data;
 using SikayetKayit.Models.ViewModel;
@@ -51,15 +52,15 @@ namespace SikayetKayit.Controllers
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult Pagination(Filter filter, int page = 1, int pageSize = 10)
         {
-                var query = dataContext.Sikayet
-                .AsQueryable();
+            var query = dataContext.Sikayet
+            .AsQueryable();
 
             if (!string.IsNullOrEmpty(filter.Title))
             {
-                query = query.Where(w => w.Title.Contains(filter.Title)||
-                                     w.Description.Contains(filter.Title)||
-                                     w.Customer.Name.Contains(filter.Title)||
-                                     w.Customer.Phone.Contains(filter.Title)||
+                query = query.Where(w => w.Title.Contains(filter.Title) ||
+                                     w.Description.Contains(filter.Title) ||
+                                     w.Customer.Name.Contains(filter.Title) ||
+                                     w.Customer.Phone.Contains(filter.Title) ||
                                      w.Customer.SurName.Contains(filter.Title));
             }
 
@@ -204,8 +205,34 @@ namespace SikayetKayit.Controllers
 
         public ActionResult AutoDdl()
         {
-           
+
             return View();
+        }
+
+        public ActionResult Deneme()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Captcha()
+        {
+            var response = Request["g-recaptcha-response"];
+            const string secret = "6LeAA-AUAAAAAF-nc86UQUaPH3jKt5fvDIzASKFQ";
+            //Kendi Secret keyinizle değiştirin.
+
+            var client = new WebClient();
+            var reply =
+                client.DownloadString(
+                    string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", secret, response));
+
+            var captchaResponse = JsonConvert.DeserializeObject<CaptchaModel>(reply);
+
+            if (!captchaResponse.Success)
+                TempData["Message"] = "Lütfen güvenliği doğrulayınız.";
+            else
+                TempData["Message"] = "Güvenlik başarıyla doğrulanmıştır.";
+            return View("Deneme");
         }
     }
 }

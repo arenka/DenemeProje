@@ -53,6 +53,9 @@
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -10099,6 +10102,7 @@
     <Compile Include="Models\Data\DataContext.cs" />
     <Compile Include="Models\Sikayet.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewModel\CaptchaModel.cs" />
     <Compile Include="Models\ViewModel\Filter.cs" />
     <Compile Include="Models\ViewModel\LoginViewModel.cs" />
     <Compile Include="Models\ViewModel\Pagination.cs" />
@@ -10131,6 +10135,7 @@
     <Content Include="Views\Home\SikayetSearch.cshtml" />
     <Content Include="Views\Home\AutoTextbox.cshtml" />
     <Content Include="Views\Home\AutoDdl.cshtml" />
+    <Content Include="Views\Home\Deneme.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,19 +1,20 @@
 ﻿@model IEnumerable<SikayetKayit.Models.Sikayet>
 
 
-<hr />
-<p>
-    @if (Model != null)
-    {
-        @foreach (var i in Model)
+    <hr />
+    <p>
+        @if (Model != null)
         {
-            <label class="label label-success">@i.Name</label>
-        }
+            @foreach (var i in Model)
+            {
+                <label class="label label-success">@i.Name</label>
+            }
 
-    }
-    else
-    {
-        <a href="#" class="btn btn-primary">Müşteri Ekle</a>
-    }
-</p>
+        }
+        else
+        {
+            <a href="#" class="btn btn-primary">Müşteri Ekle</a>
+        }
+    </p>
+
 
