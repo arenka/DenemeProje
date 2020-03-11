@@ -218,7 +218,7 @@ namespace SikayetKayit.Controllers
         public ActionResult Captcha()
         {
             var response = Request["g-recaptcha-response"];
-            const string secret = "6LeAA-AUAAAAAF-nc86UQUaPH3jKt5fvDIzASKFQ";
+            const string secret = "secretKey";
             //Kendi Secret keyinizle değiştirin.
 
             var client = new WebClient();

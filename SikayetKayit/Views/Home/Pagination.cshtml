@@ -2029,6 +2029,29 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- end:: Header Topbar -->
                 </div>
 
+
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-3 col-sm-12">Tagging Support</label>
+                    <div class=" col-lg-4 col-md-9 col-sm-12">
+                        <select class="form-control kt-select2" id="kt_select2_11" name="param">
+                            <option></option>
+                            @foreach (var item in Model.Results)
+                            {
+                                <option value="@item.Title">@item.Title</option>
+                            }
+                        </select>
+
+                    </div>
+                    <input type="text" id="yaz" name="name" value="" />
+                    <input type="button" id="tıkla" name="button" value="tıkla" />
+                </div>
+
+
+
+
+
+
+
                 <!-- end:: Header -->
                 <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
 
@@ -2219,7 +2242,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </div>
                                                             <div class="progress" style="height: 5px;width: 100%;">
                                                                 @{
-                                                                    
+
                                                                     var a = 55;
                                                                     if (a > 0 && a < 50)
                                                                     {
@@ -3252,74 +3275,83 @@ License: You must have a valid license purchased only from themeforest(the above
     <!--end:: Global Optional Vendors -->
     <!--begin::Global Theme Bundle(used by all pages) -->
     <script src="./classic/assets/js/demo1/scripts.bundle.js" type="text/javascript"></script>
-
+    <script src="./classic/assets/js/demo1/pages/crud/forms/widgets/select2.js" type="text/javascript"></script>
     <!--end::Global Theme Bundle -->
 
 
     <script>
-                                                        //$(document).ready(function () {
-                                                        //    $("#SearchBtn").click(function () {
-                                                        //        var SearchValue = $("#Search").val();
-                                                        //        var SetData = $("#DataSearching");
-                                                        //        SetData.html("");
-                                                        //        $.ajax({
-                                                        //            type: "POST",
-                                                        //            url: "/Home/PaginationSearch?SearchValue=" + SearchValue,
-                                                        //            contentType: "html",
-                                                        //            success: function (result) {
-                                                        //                if (result.lenght == 0) {
-                                                        //                    SetData.append('<label>Data yok</label>')
-                                                        //                }
-                                                        //                else {
-                                                        //                    $.each(result, function (index, value) {
-                                                        //                        var Data = '<div class="kt-portlet">' +
-                                                        //                            '<div class="kt-widget__text">' +
-                                                        //                            value.Title +
-                                                        //                            '</div></div>';
-                                                        //                        SetData.append(Data)
-                                                        //                    });
-                                                        //                }
-                                                        //            }
-                                                        //        });
-                                                        //    });
-                                                        //});
+        $(document).ready(function () {
+            $("#tıkla").click(function () {
+                $("#tıkla").css('background', 'red');
+                var text = $("#kt_select2_11").val();
+                $("#yaz").val(text);
+                console.log(text);
+            })
+
+        });
+                                                                //$(document).ready(function () {
+                                                                //    $("#SearchBtn").click(function () {
+                                                                //        var SearchValue = $("#Search").val();
+                                                                //        var SetData = $("#DataSearching");
+                                                                //        SetData.html("");
+                                                                //        $.ajax({
+                                                                //            type: "POST",
+                                                                //            url: "/Home/PaginationSearch?SearchValue=" + SearchValue,
+                                                                //            contentType: "html",
+                                                                //            success: function (result) {
+                                                                //                if (result.lenght == 0) {
+                                                                //                    SetData.append('<label>Data yok</label>')
+                                                                //                }
+                                                                //                else {
+                                                                //                    $.each(result, function (index, value) {
+                                                                //                        var Data = '<div class="kt-portlet">' +
+                                                                //                            '<div class="kt-widget__text">' +
+                                                                //                            value.Title +
+                                                                //                            '</div></div>';
+                                                                //                        SetData.append(Data)
+                                                                //                    });
+                                                                //                }
+                                                                //            }
+                                                                //        });
+                                                                //    });
+                                                                //});
 
 
-                                                        //$("#formSearch").submit(function (event) {
+                                                                //$("#formSearch").submit(function (event) {
 
-                                                        //event.preventDefault();
+                                                                //event.preventDefault();
 
-                                                        //var form = $(this);
-                                                        //var html = [];
+                                                                //var form = $(this);
+                                                                //var html = [];
 
-                                                        //$.ajax({
-                                                        //    type: 'POST',
-                                                        //    url: form.attr("action"),
-                                                        //    data: form.serialize(),
-                                                        //    dataType: 'json',
-                                                        //    success: function (data) {
+                                                                //$.ajax({
+                                                                //    type: 'POST',
+                                                                //    url: form.attr("action"),
+                                                                //    data: form.serialize(),
+                                                                //    dataType: 'json',
+                                                                //    success: function (data) {
 
-                                                        //        if (data == "") {
+                                                                //        if (data == "") {
 
-                                                        //            html.push("<div class='alert alert-dark'> Müşteri Ekle </div>");
-                                                        //        }
-                                                        //        else {
-                                                        //            $.each(data, function (key, value) {
+                                                                //            html.push("<div class='alert alert-dark'> Müşteri Ekle </div>");
+                                                                //        }
+                                                                //        else {
+                                                                //            $.each(data, function (key, value) {
 
-                                                        //                html.push("<div class='alert alert-dark'>" + value.Name + "</div>");
+                                                                //                html.push("<div class='alert alert-dark'>" + value.Name + "</div>");
 
-                                                        //            });
-                                                        //        }
+                                                                //            });
+                                                                //        }
 
 
-                                                        //        $("#results").empty().append(html);
-                                                        //    },
-                                                        //    error: function () {
-                                                        //        alert("hata oluştu");
-                                                        //    }
-                                                        //});
+                                                                //        $("#results").empty().append(html);
+                                                                //    },
+                                                                //    error: function () {
+                                                                //        alert("hata oluştu");
+                                                                //    }
+                                                                //});
 
-                                                    });
+                                                            //});
     </script>
 </body>
 

@@ -9,7 +9,7 @@
 @using (Html.BeginForm("Captcha", "Home", FormMethod.Post))
 {
     <!--Kendi Site keyinizle değiştirin.-->
-    <div class="g-recaptcha" data-sitekey="6LeAA-AUAAAAACQRggHh9dyZ85Y-YcRPRt27ho9B"></div>
+    <div class="g-recaptcha" data-sitekey="siteKey"></div>
     <input type="submit" value="Post Et" />
     <br />
     @TempData["Message"]
